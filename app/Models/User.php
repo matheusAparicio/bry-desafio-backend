@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-class User extends Model
+class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory;
+    protected $table = 'users';
 
     public function newFromBuilder($attributes = [], $connection = null)
     {
@@ -26,8 +26,17 @@ class User extends Model
 
             return $model;
         }
+    }
 
-        return parent::newFromBuilder($attributes, $connection);
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 
     /**
@@ -48,7 +57,7 @@ class User extends Model
      * @var list<string>
      */
     protected $hidden = [
-        'password',
+        // 'password',
         'type'
     ];
 }

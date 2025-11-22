@@ -11,7 +11,7 @@ class MissingRequiredFieldsException extends ApiException
         parent::__construct(
             message: $message,
             internalCode: ErrorCode::MISSING_REQUIRED_FIELDS->value,
-            status: 401
+            status: 422
         );
     }
 }

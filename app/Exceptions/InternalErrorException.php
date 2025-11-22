@@ -11,7 +11,7 @@ class InternalErrorException extends ApiException
         parent::__construct(
             message: $message,
             internalCode: ErrorCode::INTERNAL_ERROR->value,
-            status: 401
+            status: 500
         );
     }
 }

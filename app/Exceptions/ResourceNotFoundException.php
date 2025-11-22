@@ -11,7 +11,7 @@ class ResourceNotFoundException extends ApiException
         parent::__construct(
             message: $message,
             internalCode: ErrorCode::RESOURCE_NOT_FOUND->value,
-            status: 401
+            status: 404
         );
     }
 }

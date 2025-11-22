@@ -11,7 +11,7 @@ class InvalidValueException extends ApiException
         parent::__construct(
             message: $message,
             internalCode: ErrorCode::INVALID_VALUE->value,
-            status: 401
+            status: 422
         );
     }
 }

@@ -11,7 +11,7 @@ class PayloadTooLargeException extends ApiException
         parent::__construct(
             message: $message,
             internalCode: ErrorCode::PAYLOAD_TOO_LARGE->value,
-            status: 401
+            status: 413
         );
     }
 }

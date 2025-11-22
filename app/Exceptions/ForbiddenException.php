@@ -11,7 +11,7 @@ class ForbiddenException extends ApiException
         parent::__construct(
             message: $message,
             internalCode: ErrorCode::FORBIDDEN->value,
-            status: 401
+            status: 403
         );
     }
 }

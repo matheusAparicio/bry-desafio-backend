@@ -11,7 +11,7 @@ class AlreadyExistsException extends ApiException
         parent::__construct(
             message: $message,
             internalCode: ErrorCode::ALREADY_EXISTS->value,
-            status: 401
+            status: 409
         );
     }
 }
