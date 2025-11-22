@@ -6,8 +6,5 @@ use App\Models\Company;
 
 class CompanyController extends Controller
 {
-    public function index()
-    {
-        return Company::all();
-    }
+    protected string $model = Company::class;
 }

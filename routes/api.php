@@ -5,7 +5,6 @@ use App\Http\Controllers\CompanyUserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::apiResource('customers', CustomerController::class);
