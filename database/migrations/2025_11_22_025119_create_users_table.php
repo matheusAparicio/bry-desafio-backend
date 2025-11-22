@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('cpf')->unique();
             $table->string('email')->unique();
-            $table->enum('type', ['employee', 'client']);
+            $table->enum('type', ['employee', 'customer']);
             $table->string('address');
             $table->string('document_file')->nullable();
             $table->string('password');
