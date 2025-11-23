@@ -46,6 +46,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Company::class, 'company_user', 'user_id', 'company_id');
     }
 
+    public function documentFile()
+    {
+        return $this->belongsTo(DocumentFile::class, 'file_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

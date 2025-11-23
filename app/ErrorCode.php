@@ -15,5 +15,6 @@ enum ErrorCode: int
     case EXPIRED_TOKEN = 9;
     case INVALID_TOKEN = 10;
     case MISSING_TOKEN = 11;
+    case NO_ATTACHED_FILE = 12;
     case INTERNAL_ERROR = 999;
 }

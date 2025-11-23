@@ -17,8 +17,9 @@ Route::middleware('jwt.auth')->group(function() {
     Route::apiResource('employees', EmployeeController::class);
     Route::apiResource('companies', CompanyController::class);
 
-    Route::post('/files', [FileController::class, 'store']);
-    Route::delete('/files/{user_id}', [FileController::class, 'destroy']);
+    Route::post('/file', [FileController::class, 'upload']);
+    Route::get('/file', [FileController::class, 'show']);
+    Route::delete('/file', [FileController::class, 'destroy']);
 
     Route::post('/user_company', [CompanyUserController::class, 'attach']);
     Route::delete('/user_company', [CompanyUserController::class, 'detach']);

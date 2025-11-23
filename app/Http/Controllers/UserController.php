@@ -13,7 +13,9 @@ class UserController extends Controller
 
     public function index()
     {
-        return response()->json($this->model::with('companies')->get());
+        return response()->json(
+            $this->model::with(['companies', 'documentFile'])->get()
+        );
     }
 
     public function store(Request $request)

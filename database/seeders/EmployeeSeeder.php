@@ -21,7 +21,7 @@ class EmployeeSeeder extends Seeder
                 'email' => 'admin@admin.com',
                 'type' => 'employee',
                 'address' => fake()->address(),
-                'document_file' => null,
+                'file_id' => null,
                 'password' => bcrypt('admin'),
             ]);
         }

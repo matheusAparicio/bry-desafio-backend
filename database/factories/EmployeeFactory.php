@@ -24,7 +24,7 @@ class EmployeeFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'type' => 'employee',
             'address' => fake()->address(),
-            'document_file' => null,
+            'file_id' => null,
             'password' => Hash::make('password'),
         ];
     }

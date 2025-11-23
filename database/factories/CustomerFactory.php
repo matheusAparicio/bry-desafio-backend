@@ -24,7 +24,7 @@ class CustomerFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'type' => 'customer',
             'address' => fake()->address(),
-            'document_file' => null,
+            'file_id' => null,
             'password' => Hash::make('password'),
         ];
     }

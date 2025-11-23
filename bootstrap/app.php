@@ -4,11 +4,13 @@ use App\Exceptions\AlreadyExistsException;
 use App\Exceptions\ExpiredTokenException;
 use App\Exceptions\InvalidTokenException;
 use App\Exceptions\MissingTokenException;
+use App\Exceptions\PayloadTooLargeException;
 use App\Exceptions\UnauthorizedException;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Exceptions\PostTooLargeException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
@@ -34,7 +36,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions): void {
 
         $exceptions->render(function (UniqueConstraintViolationException $e, $request) {
-            throw new AlreadyExistsException(); // ou ConflictException
+            throw new AlreadyExistsException();
+        });
+
+        $exceptions->render(function (PostTooLargeException $e, $request) {
+            throw new PayloadTooLargeException();
         });
 
         $exceptions->render(function (UnauthorizedHttpException $e, $request) {

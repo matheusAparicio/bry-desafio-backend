@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->enum('type', ['employee', 'customer']);
             $table->string('address');
-            $table->string('document_file')->nullable();
+            $table->unsignedBigInteger('file_id')->nullable();
             $table->string('password');
             $table->timestamps();
         });
