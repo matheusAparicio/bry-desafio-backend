@@ -1,9 +1,11 @@
 <?php
 
+use App\Exceptions\AlreadyExistsException;
 use App\Exceptions\ExpiredTokenException;
 use App\Exceptions\InvalidTokenException;
 use App\Exceptions\MissingTokenException;
 use App\Exceptions\UnauthorizedException;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -30,6 +32,10 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+
+        $exceptions->render(function (UniqueConstraintViolationException $e, $request) {
+            throw new AlreadyExistsException(); // ou ConflictException
+        });
 
         $exceptions->render(function (UnauthorizedHttpException $e, $request) {
     

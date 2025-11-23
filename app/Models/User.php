@@ -26,6 +26,8 @@ class User extends Authenticatable implements JWTSubject
 
             return $model;
         }
+
+        return parent::newFromBuilder($attributes, $connection);
     }
 
     public function getJWTIdentifier()
@@ -62,7 +64,8 @@ class User extends Authenticatable implements JWTSubject
      * @var list<string>
      */
     protected $hidden = [
-        // 'password',
-        'type'
+        'password',
+        'type',
+        'pivot',
     ];
 }

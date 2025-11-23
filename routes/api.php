@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/customers', [CustomerController::class, 'store']);
 
 Route::middleware('jwt.auth')->group(function() {
-    Route::apiResource('customers', CustomerController::class);
+    Route::apiResource('customers', CustomerController::class)->except(['store']);;
     Route::apiResource('employees', EmployeeController::class);
     Route::apiResource('companies', CompanyController::class);
 

@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use App\ErrorCode;
-use Exception;
 
 class InvalidTokenException extends ApiException
 {
