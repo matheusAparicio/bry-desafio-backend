@@ -39,6 +39,11 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class, 'company_user', 'user_id', 'company_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

@@ -6,7 +6,7 @@ use App\ErrorCode;
 
 class AlreadyExistsException extends ApiException
 {
-    public function __construct(string $message = "")
+    public function __construct(string $message = "Resource already exists.")
     {
         parent::__construct(
             message: $message,

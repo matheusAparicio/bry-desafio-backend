@@ -6,7 +6,7 @@ use App\ErrorCode;
 
 class UnauthorizedException extends ApiException
 {
-    public function __construct(string $message = "")
+    public function __construct(string $message = "Unauthorized access.")
     {
         parent::__construct(
             message: $message,

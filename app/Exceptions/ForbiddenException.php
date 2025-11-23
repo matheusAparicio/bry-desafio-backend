@@ -6,7 +6,7 @@ use App\ErrorCode;
 
 class ForbiddenException extends ApiException
 {
-    public function __construct(string $message = "")
+    public function __construct(string $message = "Forbiden access.")
     {
         parent::__construct(
             message: $message,

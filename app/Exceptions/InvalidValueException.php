@@ -6,7 +6,7 @@ use App\ErrorCode;
 
 class InvalidValueException extends ApiException
 {
-    public function __construct(string $message = "")
+    public function __construct(string $message = "Invalid input value.")
     {
         parent::__construct(
             message: $message,

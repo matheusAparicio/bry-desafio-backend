@@ -6,7 +6,7 @@ use App\ErrorCode;
 
 class MissingRequiredFieldsException extends ApiException
 {
-    public function __construct(string $message = "")
+    public function __construct(string $message = "Missing required fields.")
     {
         parent::__construct(
             message: $message,

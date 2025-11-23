@@ -6,7 +6,7 @@ use App\ErrorCode;
 
 class PayloadTooLargeException extends ApiException
 {
-    public function __construct(string $message = "")
+    public function __construct(string $message = "Payload too large, maximum size is 8mb.")
     {
         parent::__construct(
             message: $message,

@@ -6,7 +6,7 @@ use App\ErrorCode;
 
 class InternalErrorException extends ApiException
 {
-    public function __construct(string $message = "")
+    public function __construct(string $message = "An internal error occurred.")
     {
         parent::__construct(
             message: $message,

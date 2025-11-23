@@ -11,5 +11,9 @@ enum ErrorCode: int
     case INVALID_VALUE = 5;
     case MISSING_REQUIRED_FIELDS = 6;
     case PAYLOAD_TOO_LARGE = 7;
+    case INVALID_CREDENTIALS = 8;
+    case EXPIRED_TOKEN = 9;
+    case INVALID_TOKEN = 10;
+    case MISSING_TOKEN = 11;
     case INTERNAL_ERROR = 999;
 }
