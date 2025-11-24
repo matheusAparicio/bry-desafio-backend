@@ -13,8 +13,11 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::with(['employees', 'customers'])->get();
-
-        return response()->json($companies);
+    
+        return response()->json([
+            'message' => 'Companies retrieved successfully.',
+            'data' => $companies
+        ]);
     }
 
     public function store(Request $request)
