@@ -41,7 +41,6 @@ class Company extends Model
      * @var list<string>
      */
     protected $hidden = [
-        'id',
         'created_at',
     ];
 }

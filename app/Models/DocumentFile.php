@@ -37,7 +37,6 @@ class DocumentFile extends Model
      * @var list<string>
      */
     protected $hidden = [
-        'id',
         'path',
         'original_name',
         'created_at',
