@@ -94,6 +94,18 @@ class UserController extends Controller
         ]);
     }
 
+    public function show()
+    {
+        $user = Auth::user()
+            ->load(['companies', 'documentFile'])
+            ->makeVisible('type');
+
+        return response()->json([
+            'message' => 'User retrieved successfully.',
+            'data' => $user
+        ]);
+    }
+
     public function destroy($id)
     {
         $auth = Auth::user();

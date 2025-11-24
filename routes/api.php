@@ -6,6 +6,7 @@ use App\Http\Controllers\CompanyUserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,6 +17,8 @@ Route::middleware('jwt.auth')->group(function() {
     Route::apiResource('customers', CustomerController::class)->except(['store']);;
     Route::apiResource('employees', EmployeeController::class);
     Route::apiResource('companies', CompanyController::class);
+
+    Route::get('/user', [UserController::class, 'show']);
 
     Route::post('/file', [FileController::class, 'upload']);
     Route::get('/file', [FileController::class, 'show']);
