@@ -30,4 +30,17 @@ class DocumentFile extends Model
         'original_name',
         'size',
     ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
+    protected $hidden = [
+        'id',
+        'path',
+        'original_name',
+        'created_at',
+        'updated_at',
+    ];
 }

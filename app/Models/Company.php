@@ -34,4 +34,14 @@ class Company extends Model
         'address',
         'cnpj',
     ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
+    protected $hidden = [
+        'id',
+        'created_at',
+    ];
 }
