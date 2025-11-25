@@ -28,4 +28,9 @@ COPY docker/apache.conf /etc/apache2/sites-available/000-default.conf
 
 EXPOSE 80
 
+RUN echo "=== LISTING ROOT DIRECTORY ===" && ls -l / \
+    && echo "=== LISTING /var/www ===" && ls -l /var/www \
+    && echo "=== LISTING /var/www/html ===" && ls -l /var/www/html \
+    && echo "=== FINISHED ==="
+
 CMD ["apache2ctl", "-D", "FOREGROUND"]
