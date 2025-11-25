@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: bry_app
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_ENV: local
+      APP_DEBUG: 1
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: bry
+      DB_USERNAME: bry
+      DB_PASSWORD: bry
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: bry_db
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: bry
+      POSTGRES_USER: bry
+      POSTGRES_PASSWORD: bry
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
