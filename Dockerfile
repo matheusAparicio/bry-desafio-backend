@@ -1,30 +1,34 @@
 FROM php:8.2-apache
 
-# Enable rewrite
+# Enable Apache rewrite
 RUN a2enmod rewrite
 
-# Install system deps
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     libpq-dev zip unzip git libonig-dev libzip-dev supervisor \
     && docker-php-ext-install pdo pdo_pgsql zip
 
-# Move Apache to listen on 8080 (required by Railway)
+# Copy composer binary
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Configure Apache for Railway (port 8080)
 ENV PORT=8080
 EXPOSE 8080
 RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
 RUN sed -i 's/<VirtualHost \*:80>/<VirtualHost \*:8080>/' /etc/apache2/sites-available/000-default.conf
 
-# Set working dir
+# Set working directory
 WORKDIR /var/www/html
 
-# Copy ONLY needed files
+# Copy only composer files first (better layer caching)
 COPY composer.json composer.lock ./
 RUN composer install --no-dev --no-scripts --optimize-autoloader
 
+# Now copy rest of the app
 COPY . .
 
-# Fix permissions
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Fix Laravel permissions
+RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Copy Apache config
+# Copy Apache vhost
 COPY docker/apache.conf /etc/apache2/sites-available/000-default.conf
