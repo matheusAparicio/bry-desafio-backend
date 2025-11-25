@@ -8,20 +8,16 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-ENV PORT=8080
-EXPOSE 8080
-
-RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
-
 WORKDIR /var/www/html
-
-COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-scripts --optimize-autoloader
 
 COPY . .
 
-RUN chown -R www-data:www-data storage bootstrap/cache
-
-RUN rm /etc/apache2/sites-enabled/000-default.conf
 COPY docker/apache.conf /etc/apache2/sites-available/000-default.conf
-RUN ln -s /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+
+# PORTA CERTA DO RAILWAY
+RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
+RUN sed -i 's/<VirtualHost \*:80>/<VirtualHost \*:8080>/' /etc/apache2/sites-available/000-default.conf
+
+RUN composer install --no-dev --optimize-autoloader
+
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
