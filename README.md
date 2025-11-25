@@ -12,6 +12,12 @@ A autenticação foi implementada via **JWT** (JSON Web Token) para garantir a s
 
 Pode-se acessar a API através do seguinte endereço: `https://bry-desafio-backend-production.up.railway.app`.
 
+Credenciais de um usuário "Admin":
+
+E-mail: `admin@admin.com`
+
+Senha: `admin123`
+
 As rotas são essas: [BRy - Rotas do Desafio Backend.postman_collection.json](https://github.com/user-attachments/files/23742576/BRy.-.Rotas.do.Desafio.Backend.postman_collection.json)
 
 ## Estrutura de Arquivos
