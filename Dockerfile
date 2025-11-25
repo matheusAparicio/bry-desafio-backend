@@ -31,4 +31,4 @@ COPY docker/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
 EXPOSE 80
 
-CMD ["/usr/bin/supervisord", "-n"]
+CMD ["apache2ctl", "-D", "FOREGROUND"]
