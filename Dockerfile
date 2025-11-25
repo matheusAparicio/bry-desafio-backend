@@ -26,9 +26,6 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # Copia arquivo de configuração do Apache
 COPY docker/apache.conf /etc/apache2/sites-available/000-default.conf
 
-# Copia configuração do Supervisor
-COPY docker/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
-
 EXPOSE 80
 
 CMD ["apache2ctl", "-D", "FOREGROUND"]
