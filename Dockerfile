@@ -26,7 +26,13 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # Copia arquivo de configuração do Apache
 COPY docker/apache.conf /etc/apache2/sites-available/000-default.conf
 
-EXPOSE 80
+ENV PORT=8080
+EXPOSE 8080
+
+# Force Apache to listen on port 8080
+RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
+RUN sed -i 's/<VirtualHost \*:80>/<VirtualHost \*:8080>/' /etc/apache2/sites-available/000-default.conf
+
 
 RUN echo "=== LISTING ROOT DIRECTORY ===" && ls -l / \
     && echo "=== LISTING /var/www ===" && ls -l /var/www \
