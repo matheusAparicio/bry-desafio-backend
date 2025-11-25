@@ -28,10 +28,11 @@ class CompanyController extends Controller
             'address' => 'required|string|max:255',
         ]);
     
-        Company::create($data);
+        $newCompany = Company::create($data);
     
         return response()->json([
-            'message' => 'Company created successfully.'
+            'message' => 'Company created successfully.',
+            'company' => $newCompany,
         ], 201);
     }
 
@@ -52,7 +53,8 @@ class CompanyController extends Controller
         $company->update($data);
     
         return response()->json([
-            'message' => 'Company updated successfully.'
+            'message' => 'Company updated successfully.',
+            'company' => $company,
         ]);
     }
 
