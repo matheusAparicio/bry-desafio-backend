@@ -1,33 +1,52 @@
 FROM php:8.2-apache
 
-# Habilita mod_rewrite
+# 1. Instala dependências do sistema
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    libpq-dev \
+    libzip-dev \
+    && docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd zip
+
+# 2. Habilita mod_rewrite do Apache
 RUN a2enmod rewrite
 
-# Instala extensões e dependências
-RUN apt-get update && apt-get install -y \
-    libpq-dev zip unzip git libonig-dev libzip-dev supervisor \
-    && docker-php-ext-install pdo pdo_pgsql zip
+# 3. Configuração do Apache (Copia da pasta docker/apache)
+COPY ./docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 
-# Copia o Composer da imagem oficial
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# 4. Instala o Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Define diretório de trabalho
+# 5. Define diretório de trabalho
 WORKDIR /var/www/html
 
-# Copia toda a aplicação para o container
+# 6. Copia composer.json e composer.lock PRIMEIRO (para cache do Docker)
+COPY composer.json composer.lock ./
+
+# 7. Instala dependências (Modo Produção: sem dev, otimizado)
+RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+# 8. Copia o restante do código da aplicação
 COPY . .
 
-# Instala as dependências do Laravel
-RUN composer install --no-dev --optimize-autoloader
+# 9. Configura permissões (O usuário do Apache precisa ser dono dos arquivos)
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Ajusta permissões das pastas
-RUN chown -R www-data:www-data storage bootstrap/cache
+# 10. Copia e configura o Entrypoint
+COPY ./docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Configuração do Apache
-COPY docker/apache.conf /etc/apache2/sites-available/000-default.conf
-
-# Railway expõe somente porta 80
+# 11. Expõe a porta 80 (O Railway mapeia isso automaticamente)
 EXPOSE 80
 
-# Comando para manter o Apache rodando
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+# 12. Define o Entrypoint
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+# 13. Comando padrão
+CMD ["apache2-foreground"]
