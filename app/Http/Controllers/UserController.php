@@ -42,12 +42,12 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'cpf' => 'required|string|unique:users,cpf|size:11',
             'email' => 'required|email|unique:users,email',
-            'type' => 'required|in:employee,customer',
             'address' => 'required|string|max:255',
             'document_file' => 'nullable|string',
             'password' => 'required|string|min:6',
         ]);
 
+        $data['type'] = strtolower(class_basename($this->model));
         $data['password'] = bcrypt($data['password']);
 
         $user = $this->model::create($data);
